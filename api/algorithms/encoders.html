@@ -73,31 +73,27 @@ terminal</li>
 <p class="last">The following methods and properties must be implemented by
 subclasses:</p>
 </div>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt><a class="reference internal" href="#nupic.encoders.base.Encoder.getDecoderOutputFieldTypes" title="nupic.encoders.base.Encoder.getDecoderOutputFieldTypes"><code class="xref py py-func docutils literal"><span class="pre">getDecoderOutputFieldTypes()</span></code></a> - must be</dt>
-<dd><p class="first last">implemented by leaf encoders. Returns <a class="reference internal" href="#nupic.data.fieldmeta.FieldMetaType" title="nupic.data.fieldmeta.FieldMetaType"><code class="xref py py-class docutils literal"><span class="pre">nupic.data.fieldmeta.FieldMetaType</span></code></a>.XXXXX
-(e.g., <a class="reference internal" href="#nupic.data.fieldmeta.FieldMetaType" title="nupic.data.fieldmeta.FieldMetaType"><code class="xref py py-class docutils literal"><span class="pre">nupic.data.fieldmeta.FieldMetaType</span></code></a>.float)</p>
-</dd>
+<dd>implemented by leaf encoders. Returns <a class="reference internal" href="#nupic.data.fieldmeta.FieldMetaType" title="nupic.data.fieldmeta.FieldMetaType"><code class="xref py py-class docutils literal"><span class="pre">nupic.data.fieldmeta.FieldMetaType</span></code></a>.XXXXX
+(e.g., <a class="reference internal" href="#nupic.data.fieldmeta.FieldMetaType" title="nupic.data.fieldmeta.FieldMetaType"><code class="xref py py-class docutils literal"><span class="pre">nupic.data.fieldmeta.FieldMetaType</span></code></a>.float)</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><a class="reference internal" href="#nupic.encoders.base.Encoder.getWidth" title="nupic.encoders.base.Encoder.getWidth"><code class="xref py py-func docutils literal"><span class="pre">getWidth()</span></code></a> - returns the output width, in</dt>
-<dd><p class="first last">bits</p>
-</dd>
+<dd>bits</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><a class="reference internal" href="#nupic.encoders.base.Encoder.encodeIntoArray" title="nupic.encoders.base.Encoder.encodeIntoArray"><code class="xref py py-func docutils literal"><span class="pre">encodeIntoArray()</span></code></a> - encodes input and</dt>
-<dd><p class="first last">puts the encoded value into the numpy output array, which is a 1-D array of
-length returned by <a class="reference internal" href="#nupic.encoders.base.Encoder.getWidth" title="nupic.encoders.base.Encoder.getWidth"><code class="xref py py-func docutils literal"><span class="pre">getWidth()</span></code></a></p>
-</dd>
+<dd>puts the encoded value into the numpy output array, which is a 1-D array of
+length returned by <a class="reference internal" href="#nupic.encoders.base.Encoder.getWidth" title="nupic.encoders.base.Encoder.getWidth"><code class="xref py py-func docutils literal"><span class="pre">getWidth()</span></code></a></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><a class="reference internal" href="#nupic.encoders.base.Encoder.getDescription" title="nupic.encoders.base.Encoder.getDescription"><code class="xref py py-func docutils literal"><span class="pre">getDescription()</span></code></a> - returns a list of</dt>
-<dd><p class="first last">(name, offset) pairs describing the encoded output</p>
-</dd>
+<dd>(name, offset) pairs describing the encoded output</dd>
 </dl>
 </li>
 </ul>
@@ -1270,8 +1266,20 @@ False if not</td>
 <li class="toctree-l2"><a class="reference internal" href="../opf/index.html">Online Prediction Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../network/index.html">Network API</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Algorithms</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Encoders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Encoders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#encoder">Encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scalar-encoder">Scalar Encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#random-distributed-scalar-encoder">Random Distributed Scalar Encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dateencoder">DateEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coordinateencoder">CoordinateEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geospatialcoordinateencoder">GeospatialCoordinateEncoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multiencoder">MultiEncoder</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fieldmetatype">FieldMetaType</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="spatial-pooler.html">Spatial Pooler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="temporal-memory.html">Temporal Memory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classifiers.html">Classifiers</a></li>
