@@ -53,34 +53,74 @@
 <dt id="nupic.algorithms.anomaly.Anomaly">
 <em class="property">class </em><code class="descclassname">nupic.algorithms.anomaly.</code><code class="descname">Anomaly</code><span class="sig-paren">(</span><em>slidingWindowSize=None</em>, <em>mode='pure'</em>, <em>binaryAnomalyThreshold=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility class for generating anomaly scores in different ways.</p>
-<dl class="docutils">
-<dt>Supported modes:</dt>
-<dd><p class="first">MODE_PURE - the raw anomaly score as computed by computeRawAnomalyScore
-MODE_LIKELIHOOD - uses the AnomalyLikelihood class on top of the raw</p>
-<blockquote>
-<div>anomaly scores</div></blockquote>
-<dl class="last docutils">
-<dt>MODE_WEIGHTED - multiplies the likelihood result with the raw anomaly score</dt>
-<dd>that was used to generate the likelihood</dd>
-</dl>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>slidingWindowSize</strong> &#8211; [optional] - how many elements are summed up;
+enables moving average on final anomaly score; int &gt;= 0</li>
+<li><strong>mode</strong> &#8211; <p>(string) [optional] how to compute anomaly, one of:</p>
+<ul>
+<li><a class="reference internal" href="#nupic.algorithms.anomaly.Anomaly.MODE_PURE" title="nupic.algorithms.anomaly.Anomaly.MODE_PURE"><code class="xref py py-const docutils literal"><span class="pre">nupic.algorithms.anomaly.Anomaly.MODE_PURE</span></code></a></li>
+<li><a class="reference internal" href="#nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD" title="nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD"><code class="xref py py-const docutils literal"><span class="pre">nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD</span></code></a></li>
+<li><a class="reference internal" href="#nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED" title="nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED"><code class="xref py py-const docutils literal"><span class="pre">nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED</span></code></a></li>
+</ul>
+</li>
+<li><strong>binaryAnomalyThreshold</strong> &#8211; [optional] if set [0,1] anomaly score
+will be discretized to 1/0 (1 if &gt;= binaryAnomalyThreshold)
+The transformation is applied after moving average is computed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD">
+<code class="descname">MODE_LIKELIHOOD</code><em class="property"> = 'likelihood'</em><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the <a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood" title="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood"><code class="xref py py-class docutils literal"><span class="pre">AnomalyLikelihood</span></code></a> class, which models
+probability of receiving this value and anomalyScore</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nupic.algorithms.anomaly.Anomaly.MODE_PURE">
+<code class="descname">MODE_PURE</code><em class="property"> = 'pure'</em><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly.MODE_PURE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default mode. The raw anomaly score as computed by
+<code class="xref py py-func docutils literal"><span class="pre">computeRawAnomalyScore()</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED">
+<code class="descname">MODE_WEIGHTED</code><em class="property"> = 'weighted'</em><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies the likelihood result with the raw anomaly score that was used to
+generate the likelihood (anomaly * likelihood)</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="nupic.algorithms.anomaly.Anomaly.compute">
 <code class="descname">compute</code><span class="sig-paren">(</span><em>activeColumns</em>, <em>predictedColumns</em>, <em>inputValue=None</em>, <em>timestamp=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the anomaly score as the percent of active columns not predicted.</p>
-<p>&#64;param activeColumns: array of active column indices
-&#64;param predictedColumns: array of columns indices predicted in this step</p>
-<blockquote>
-<div>(used for anomaly in step T+1)</div></blockquote>
-<dl class="docutils">
-<dt>&#64;param inputValue: (optional) value of current input to encoders </dt>
-<dd>(eg &#8220;cat&#8221; for category encoder)
-(used in anomaly-likelihood)</dd>
-<dt>&#64;param timestamp: (optional) date timestamp when the sample occured</dt>
-<dd>(used in anomaly-likelihood)</dd>
-</dl>
-<p>&#64;return the computed anomaly score; float 0..1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activeColumns</strong> &#8211; array of active column indices</li>
+<li><strong>predictedColumns</strong> &#8211; array of columns indices predicted in this step
+(used for anomaly in step T+1)</li>
+<li><strong>inputValue</strong> &#8211; (optional) value of current input to encoders
+(eg &#8220;cat&#8221; for category encoder)
+(used in anomaly-likelihood)</li>
+<li><strong>timestamp</strong> &#8211; (optional) date timestamp when the sample occured
+(used in anomaly-likelihood)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the computed anomaly score; float 0..1</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -90,9 +130,21 @@ MODE_LIKELIHOOD - uses the AnomalyLikelihood class on top of the raw</p>
 <code class="descclassname">nupic.algorithms.anomaly.</code><code class="descname">computeRawAnomalyScore</code><span class="sig-paren">(</span><em>activeColumns</em>, <em>prevPredictedColumns</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly.computeRawAnomalyScore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the raw anomaly score.</p>
 <p>The raw anomaly score is the fraction of active columns not predicted.</p>
-<p>&#64;param activeColumns: array of active column indices
-&#64;param prevPredictedColumns: array of columns indices predicted in prev step
-&#64;return anomaly score 0..1 (float)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>activeColumns</strong> &#8211; array of active column indices</li>
+<li><strong>prevPredictedColumns</strong> &#8211; array of columns indices predicted in prev step</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">anomaly score 0..1 (float)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -106,49 +158,121 @@ predictability about one out of every 100 records. The number is not as unusual
 as it seems. For records that arrive every minute, this means once every hour
 and 40 minutes. A likelihood of 0.0001 or 0.01% means we see it once out of
 10,000 records, or about once every 7 days.</p>
-<div class="section" id="usage">
-<h3>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
-<p>There are two ways to use the code: using the AnomalyLikelihood helper class or
-using the raw individual functions.</p>
+<p><strong>USAGE</strong></p>
+<p>There are two ways to use the code: using the
+<a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood" title="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood"><code class="xref py py-class docutils literal"><span class="pre">anomaly_likelihood.AnomalyLikelihood</span></code></a> helper class or using the raw
+individual functions <a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods" title="nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods"><code class="xref py py-func docutils literal"><span class="pre">estimateAnomalyLikelihoods()</span></code></a> and
+<a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods" title="nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods"><code class="xref py py-func docutils literal"><span class="pre">updateAnomalyLikelihoods()</span></code></a>.</p>
+<p><strong>Low-Level Function Usage</strong></p>
+<p>There are two primary interface routines:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods" title="nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods"><code class="xref py py-func docutils literal"><span class="pre">estimateAnomalyLikelihoods()</span></code></a>: batch routine, called</dt>
+<dd>initially and once in a while</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods" title="nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods"><code class="xref py py-func docutils literal"><span class="pre">updateAnomalyLikelihoods()</span></code></a>: online routine, called</dt>
+<dd>for every new data point</dd>
+</dl>
+</li>
+</ul>
+<ol class="arabic simple">
+<li>Initially:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">likelihoods</span><span class="p">,</span> <span class="n">avgRecordList</span><span class="p">,</span> <span class="n">estimatorParams</span> <span class="o">=</span> \
+  <span class="n">estimateAnomalyLikelihoods</span><span class="p">(</span><span class="n">metric_data</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="helper-class">
-<h3>Helper Class<a class="headerlink" href="#helper-class" title="Permalink to this headline">¶</a></h3>
-<p>The helper class AnomalyLikelihood is the easiest to use.  To use it simply
-create an instance and then feed it successive anomaly scores:</p>
-<p>anomalyLikelihood = AnomalyLikelihood()
-while still_have_data:</p>
-<blockquote>
-<div><p># Get anomaly score from model</p>
-<p># Compute probability that an anomaly has ocurred
-anomalyProbability = anomalyLikelihood.anomalyProbability(</p>
-<blockquote>
-<div>value, anomalyScore, timestamp)</div></blockquote>
-</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>Whenever you get new data:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">likelihoods</span><span class="p">,</span> <span class="n">avgRecordList</span><span class="p">,</span> <span class="n">estimatorParams</span> <span class="o">=</span> \
+  <span class="n">updateAnomalyLikelihoods</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">estimatorParams</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="raw-functions">
-<h3>Raw functions<a class="headerlink" href="#raw-functions" title="Permalink to this headline">¶</a></h3>
-<p>There are two lower level functions, estimateAnomalyLikelihoods and
-updateAnomalyLikelihoods. The details of these are described below.</p>
+<ol class="arabic simple" start="3">
+<li>And again (make sure you use the new estimatorParams returned in the above</li>
+</ol>
+<blockquote>
+<div>call to updateAnomalyLikelihoods!):</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">likelihoods</span><span class="p">,</span> <span class="n">avgRecordList</span><span class="p">,</span> <span class="n">estimatorParams</span> <span class="o">=</span> \
+  <span class="n">updateAnomalyLikelihoods</span><span class="p">(</span><span class="n">data3</span><span class="p">,</span> <span class="n">estimatorParams</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Every once in a while update estimator with a lot of recent data:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">likelihoods</span><span class="p">,</span> <span class="n">avgRecordList</span><span class="p">,</span> <span class="n">estimatorParams</span> <span class="o">=</span> \
+  <span class="n">estimateAnomalyLikelihoods</span><span class="p">(</span><span class="n">lots_of_metric_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>PARAMS</strong></p>
+<p>The parameters dict returned by the above functions has the following
+structure. Note: the client does not need to know the details of this.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;distribution&quot;</span><span class="p">:</span>               <span class="c1"># describes the distribution</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">STRING</span><span class="p">,</span>           <span class="c1"># name of the distribution, such as &#39;normal&#39;</span>
+      <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">SCALAR</span><span class="p">,</span>           <span class="c1"># mean of the distribution</span>
+      <span class="s2">&quot;variance&quot;</span><span class="p">:</span> <span class="n">SCALAR</span><span class="p">,</span>       <span class="c1"># variance of the distribution</span>
+
+      <span class="c1"># There may also be some keys that are specific to the distribution</span>
+    <span class="p">},</span>
+
+  <span class="s2">&quot;historicalLikelihoods&quot;</span><span class="p">:</span> <span class="p">[]</span>   <span class="c1"># Contains the last windowSize likelihood</span>
+                                <span class="c1"># values returned</span>
+
+  <span class="s2">&quot;movingAverage&quot;</span><span class="p">:</span>              <span class="c1"># stuff needed to compute a rolling average</span>
+                                <span class="c1"># of the anomaly scores</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;windowSize&quot;</span><span class="p">:</span> <span class="n">SCALAR</span><span class="p">,</span>     <span class="c1"># the size of the averaging window</span>
+      <span class="s2">&quot;historicalValues&quot;</span><span class="p">:</span> <span class="p">[],</span>   <span class="c1"># list with the last windowSize anomaly</span>
+                                <span class="c1"># scores</span>
+      <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">SCALAR</span><span class="p">,</span>          <span class="c1"># the total of the values in historicalValues</span>
+    <span class="p">},</span>
+
+<span class="p">}</span>
+</pre></div>
 </div>
 <dl class="class">
 <dt id="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood">
 <em class="property">class </em><code class="descclassname">nupic.algorithms.anomaly_likelihood.</code><code class="descname">AnomalyLikelihood</code><span class="sig-paren">(</span><em>claLearningPeriod=None</em>, <em>learningPeriod=288</em>, <em>estimationSamples=100</em>, <em>historicWindowSize=8640</em>, <em>reestimationPeriod=100</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper class for running anomaly likelihood computation.</p>
+<dd><p>Helper class for running anomaly likelihood computation. To use it simply
+create an instance and then feed it successive anomaly scores:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">anomalyLikelihood</span> <span class="o">=</span> <span class="n">AnomalyLikelihood</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">still_have_data</span><span class="p">:</span>
+  <span class="c1"># Get anomaly score from model</span>
+
+  <span class="c1"># Compute probability that an anomaly has ocurred</span>
+  <span class="n">anomalyProbability</span> <span class="o">=</span> <span class="n">anomalyLikelihood</span><span class="o">.</span><span class="n">anomalyProbability</span><span class="p">(</span>
+      <span class="n">value</span><span class="p">,</span> <span class="n">anomalyScore</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.anomalyProbability">
 <code class="descname">anomalyProbability</code><span class="sig-paren">(</span><em>value</em>, <em>anomalyScore</em>, <em>timestamp=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.anomalyProbability" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the probability that the current value plus anomaly score represents
 an anomaly given the historical distribution of anomaly scores. The closer
 the number is to 1, the higher the chance it is an anomaly.</p>
-<dl class="docutils">
-<dt>&#64;param value - the current metric (&#8220;raw&#8221;) input value, eg. &#8220;orange&#8221;, or</dt>
-<dd>&#8216;21.2&#8217; (deg. Celsius), ...</dd>
-</dl>
-<p>&#64;param anomalyScore - the current anomaly score
-&#64;param timestamp - (optional) timestamp of the ocurrence,</p>
-<blockquote>
-<div>default (None) results in using iteration step.</div></blockquote>
-<p>&#64;return the anomalyLikelihood for this record.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; the current metric (&#8220;raw&#8221;) input value, eg. &#8220;orange&#8221;, or
+&#8216;21.2&#8217; (deg. Celsius), ...</li>
+<li><strong>anomalyScore</strong> &#8211; the current anomaly score</li>
+<li><strong>timestamp</strong> &#8211; [optional] timestamp of the ocurrence,
+default (None) results in using iteration step.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the anomalyLikelihood for this record.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -164,21 +288,32 @@ etc.</p>
 <dt id="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.read">
 <em class="property">classmethod </em><code class="descname">read</code><span class="sig-paren">(</span><em>proto</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>capnp deserialization method for the anomaly likelihood object</p>
-<dl class="docutils">
-<dt>&#64;param proto (Object) capnp proto object specified in</dt>
-<dd>nupic.regions.AnomalyLikelihoodRegion.capnp</dd>
-</dl>
-<p>&#64;return (Object) the deserialized AnomalyLikelihood object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>proto</strong> &#8211; (Object) capnp proto object specified in
+nupic.regions.AnomalyLikelihoodRegion.capnp</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(Object) the deserialized AnomalyLikelihood object</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.write">
 <code class="descname">write</code><span class="sig-paren">(</span><em>proto</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>capnp serialization method for the anomaly likelihood object</p>
-<dl class="docutils">
-<dt>&#64;param proto (Object) capnp proto object specified in</dt>
-<dd>nupic.regions.AnomalyLikelihoodRegion.capnp</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>proto</strong> &#8211; (Object) capnp proto object specified in
+nupic.regions.AnomalyLikelihoodRegion.capnp</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

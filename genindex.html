@@ -156,6 +156,8 @@
 </li>
       <li><a href="api/network/regions.html#nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion.classifyStates">classifyStates() (nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion method)</a>
 </li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.clear">clear() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/io.html#nupic.data.file_record_stream.FileRecordStream.clearStats">clearStats() (nupic.data.file_record_stream.FileRecordStream method)</a>
 </li>
       <li><a href="api/algorithms/encoders.html#nupic.encoders.base.Encoder.closenessScores">closenessScores() (nupic.encoders.base.Encoder method)</a>
@@ -164,6 +166,10 @@
         <li><a href="api/algorithms/encoders.html#nupic.encoders.scalar.ScalarEncoder.closenessScores">(nupic.encoders.scalar.ScalarEncoder method)</a>
 </li>
       </ul></li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.closestOtherTrainingPattern">closestOtherTrainingPattern() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.closestTrainingPattern">closestTrainingPattern() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.columnForCell">columnForCell() (nupic.research.temporal_memory.TemporalMemory method)</a>
 </li>
       <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.Anomaly.compute">compute() (nupic.algorithms.anomaly.Anomaly method)</a>
@@ -261,6 +267,8 @@
       <li><a href="api/network/regions.html#nupic.regions.KNNClassifierRegion.KNNClassifierRegion.disableTap">disableTap() (nupic.regions.KNNClassifierRegion.KNNClassifierRegion method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.regions.KNNClassifierRegion.KNNClassifierRegion.doInference">doInference() (nupic.regions.KNNClassifierRegion.KNNClassifierRegion method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.doIteration">doIteration() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -410,6 +418,8 @@
 </li>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.getCellsPerColumn">getCellsPerColumn() (nupic.research.temporal_memory.TemporalMemory method)</a>
 </li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getClosest">getClosest() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getColumnDimensions">getColumnDimensions() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 
       <ul>
@@ -441,6 +451,8 @@
 </li>
       </ul></li>
       <li><a href="api/algorithms/encoders.html#nupic.encoders.base.Encoder.getDisplayWidth">getDisplayWidth() (nupic.encoders.base.Encoder method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getDistances">getDistances() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getDutyCyclePeriod">getDutyCyclePeriod() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
@@ -514,10 +526,10 @@
         <li><a href="api/opf/metrics.html#nupic.frameworks.opf.metrics.MetricsIface.getMetric">(nupic.frameworks.opf.metrics.MetricsIface method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.predictionmetricsmanager.MetricsManager.getMetricDetails">getMetricDetails() (nupic.frameworks.opf.predictionmetricsmanager.MetricsManager method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.predictionmetricsmanager.MetricsManager.getMetricLabels">getMetricLabels() (nupic.frameworks.opf.predictionmetricsmanager.MetricsManager method)</a>
 </li>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.predictionmetricsmanager.MetricsManager.getMetrics">getMetrics() (nupic.frameworks.opf.predictionmetricsmanager.MetricsManager method)</a>
@@ -542,6 +554,8 @@
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getNumInputs">getNumInputs() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getNumPartitionIds">getNumPartitionIds() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.getOutputElementCount">getOutputElementCount() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
 
       <ul>
@@ -562,8 +576,12 @@
       </ul></li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getOverlapDutyCycles">getOverlapDutyCycles() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
-      <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getOverlaps">getOverlaps() (nupic.research.spatial_pooler.SpatialPooler method)</a>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getOverlaps">getOverlaps() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+
+      <ul>
+        <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getOverlaps">(nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
+      </ul></li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.getParameter">getParameter() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
 
       <ul>
@@ -583,6 +601,16 @@
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.getParameterArray">getParameterArray() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.getParameterArrayCount">getParameterArrayCount() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionId">getPartitionId() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdList">getPartitionIdList() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdPerPattern">getPartitionIdPerPattern() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getPattern">getPattern() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.getPatternIndicesWithPartitionId">getPatternIndicesWithPartitionId() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.getPermanence">getPermanence() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
@@ -702,8 +730,12 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.infer">infer() (nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.infer">infer() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+
+      <ul>
+        <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.infer">(nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
 </li>
+      </ul></li>
       <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.inferSingleStep">inferSingleStep() (nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.initialize">initialize() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
@@ -736,6 +768,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier">KNNClassifier (class in nupic.algorithms.KNNClassifier)</a>
+</li>
       <li><a href="api/network/regions.html#nupic.regions.KNNClassifierRegion.KNNClassifierRegion">KNNClassifierRegion (class in nupic.regions.KNNClassifierRegion)</a>
 </li>
   </ul></td>
@@ -744,14 +778,16 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.learn">learn() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/network/network.html#nupic.engine.Network.link">link() (nupic.engine.Network method)</a>
 </li>
       <li><a href="api/algorithms/encoders.html#nupic.data.fieldmeta.FieldMetaType.list">list (nupic.data.fieldmeta.FieldMetaType attribute)</a>
 </li>
-      <li><a href="api/opf/models.html#nupic.frameworks.opf.model.Model.load">load() (nupic.frameworks.opf.model.Model class method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/opf/models.html#nupic.frameworks.opf.model.Model.load">load() (nupic.frameworks.opf.model.Model class method)</a>
+</li>
       <li><a href="api/opf/utils.html#nupic.frameworks.opf.opfhelpers.loadExperiment">loadExperiment() (in module nupic.frameworks.opf.opfhelpers)</a>
 </li>
       <li><a href="api/opf/utils.html#nupic.frameworks.opf.opfhelpers.loadExperimentDescriptionScriptFromDir">loadExperimentDescriptionScriptFromDir() (in module nupic.frameworks.opf.opfhelpers)</a>
@@ -784,12 +820,12 @@
 </li>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.metrics.MetricPassThruPrediction">MetricPassThruPrediction (class in nupic.frameworks.opf.metrics)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.metrics.MetricsIface">MetricsIface (class in nupic.frameworks.opf.metrics)</a>
 </li>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.predictionmetricsmanager.MetricsManager">MetricsManager (class in nupic.frameworks.opf.predictionmetricsmanager)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.metrics.MetricSpec">MetricSpec (class in nupic.frameworks.opf.metrics)</a>
 </li>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.metrics.MetricTrivial">MetricTrivial (class in nupic.frameworks.opf.metrics)</a>
@@ -799,6 +835,12 @@
       <li><a href="api/network/network.html#nupic.engine.Network.minEnabledPhase">minEnabledPhase (nupic.engine.Network attribute)</a>
 </li>
       <li><a href="api/network/network.html#nupic.engine.Network.minPhase">minPhase (nupic.engine.Network attribute)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.Anomaly.MODE_LIKELIHOOD">MODE_LIKELIHOOD (nupic.algorithms.anomaly.Anomaly attribute)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.Anomaly.MODE_PURE">MODE_PURE (nupic.algorithms.anomaly.Anomaly attribute)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.Anomaly.MODE_WEIGHTED">MODE_WEIGHTED (nupic.algorithms.anomaly.Anomaly attribute)</a>
 </li>
       <li><a href="api/opf/models.html#nupic.frameworks.opf.model.Model">Model (class in nupic.frameworks.opf.model)</a>
 </li>
@@ -902,9 +944,11 @@
 </li>
       <li><a href="api/network/network.html#nupic.engine.Network.regions">regions (nupic.engine.Network attribute)</a>
 </li>
+      <li><a href="api/network/network.html#nupic.engine.Network.registerRegion">registerRegion() (nupic.engine.Network static method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/network/network.html#nupic.engine.Network.registerRegion">registerRegion() (nupic.engine.Network static method)</a>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.remapCategories">remapCategories() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion.removeLabels">removeLabels() (nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion method)</a>
 </li>
@@ -984,6 +1028,8 @@
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.setBoostStrength">setBoostStrength() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.KNNClassifier.KNNClassifier.setCategoryOfVectors">setCategoryOfVectors() (nupic.algorithms.KNNClassifier.KNNClassifier method)</a>
+</li>
       <li><a href="api/io.html#nupic.data.file_record_stream.FileRecordStream.setCompleted">setCompleted() (nupic.data.file_record_stream.FileRecordStream method)</a>
 </li>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.setConnectedPermanence">setConnectedPermanence() (nupic.research.temporal_memory.TemporalMemory method)</a>
@@ -1020,10 +1066,10 @@
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.setMinPctOverlapDutyCycles">setMinPctOverlapDutyCycles() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
-      <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.setMinThreshold">setMinThreshold() (nupic.research.temporal_memory.TemporalMemory method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.setMinThreshold">setMinThreshold() (nupic.research.temporal_memory.TemporalMemory method)</a>
+</li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.setNumActiveColumnsPerInhArea">setNumActiveColumnsPerInhArea() (nupic.research.spatial_pooler.SpatialPooler method)</a>
 </li>
       <li><a href="api/algorithms/spatial-pooler.html#nupic.research.spatial_pooler.SpatialPooler.setOverlapDutyCycles">setOverlapDutyCycles() (nupic.research.spatial_pooler.SpatialPooler method)</a>

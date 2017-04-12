@@ -235,7 +235,242 @@ The implementation of the SDR Classifier can be specified with
 the &#8220;implementation&#8221; keyword argument.</p>
 <dl class="docutils">
 <dt>The SDRClassifierFactory uses the implementation as specified in</dt>
-<dd>src/nupic/support/nupic-default.xml</dd>
+<dd><a class="reference external" href="default-config.html">Default NuPIC Configuration</a>.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="knn-classifier">
+<h2>KNN Classifier<a class="headerlink" href="#knn-classifier" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier">
+<em class="property">class </em><code class="descclassname">nupic.algorithms.KNNClassifier.</code><code class="descname">KNNClassifier</code><span class="sig-paren">(</span><em>k=1</em>, <em>exact=False</em>, <em>distanceNorm=2.0</em>, <em>distanceMethod='norm'</em>, <em>distThreshold=0</em>, <em>doBinarization=False</em>, <em>binarizationThreshold=0.5</em>, <em>useSparseMemory=True</em>, <em>sparseThreshold=0.1</em>, <em>relativeThreshold=False</em>, <em>numWinners=0</em>, <em>numSVDSamples=None</em>, <em>numSVDDims=None</em>, <em>fractionOfMax=None</em>, <em>verbosity=0</em>, <em>maxStoredPatterns=-1</em>, <em>replaceDuplicates=False</em>, <em>cellsPerCol=0</em>, <em>minSparsity=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements NuPIC&#8217;s k Nearest Neighbor Classifier. KNN is very
+useful as a basic classifier for many situations. This implementation contains
+many enhancements that are useful for HTM experiments. These enhancements
+include an optimized C++ class for sparse vectors, support for continuous
+online learning, support for various distance methods (including Lp-norm and
+raw overlap), support for performing SVD on the input vectors (very useful for
+large vectors), support for a fixed-size KNN, and a mechanism to store custom
+ID&#8217;s for each vector.</p>
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the state of the KNNClassifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.closestOtherTrainingPattern">
+<code class="descname">closestOtherTrainingPattern</code><span class="sig-paren">(</span><em>inputPattern</em>, <em>cat</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.closestOtherTrainingPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the closest training pattern that is <em>not</em> of the given
+category &#8220;cat&#8221;.</p>
+<p>&#64;param inputPattern The pattern whose closest neighbor is sought</p>
+<dl class="docutils">
+<dt>&#64;param cat Training patterns of this category will be ignored no matter</dt>
+<dd>their distance to inputPattern</dd>
+<dt>&#64;return A dense version of the closest training pattern, or None if no such</dt>
+<dd>patterns exist</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.closestTrainingPattern">
+<code class="descname">closestTrainingPattern</code><span class="sig-paren">(</span><em>inputPattern</em>, <em>cat</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.closestTrainingPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the closest training pattern to inputPattern that belongs to
+category &#8220;cat&#8221;.</p>
+<p>&#64;param inputPattern The pattern whose closest neighbor is sought</p>
+<p>&#64;param cat The required category of closest neighbor</p>
+<dl class="docutils">
+<dt>&#64;return A dense version of the closest training pattern, or None if no such</dt>
+<dd>patterns exist</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.doIteration">
+<code class="descname">doIteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.doIteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility method to increment the iteration index. Intended for models that
+don&#8217;t learn each timestep.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getClosest">
+<code class="descname">getClosest</code><span class="sig-paren">(</span><em>inputPattern</em>, <em>topKCategories=3</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getClosest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of the pattern that is closest to inputPattern,
+the distances of all patterns to inputPattern, and the indices of the k
+closest categories.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getDistances">
+<code class="descname">getDistances</code><span class="sig-paren">(</span><em>inputPattern</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getDistances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the distances between the input pattern and all other
+stored patterns.</p>
+<p>&#64;param inputPattern pattern to check distance with</p>
+<dl class="docutils">
+<dt>&#64;return (distances, categories) numpy arrays of the same length:</dt>
+<dd>overlaps: an integer overlap amount for each category
+categories: category index for each element of distances</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getNumPartitionIds">
+<code class="descname">getNumPartitionIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getNumPartitionIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of unique partition Ids stored.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getOverlaps">
+<code class="descname">getOverlaps</code><span class="sig-paren">(</span><em>inputPattern</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getOverlaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the degree of overlap between an input pattern and each category
+stored in the classifier. The overlap is computed by compuing:</p>
+<blockquote>
+<div>logical_and(inputPattern != 0, trainingPattern != 0).sum()</div></blockquote>
+<p>&#64;param inputPattern pattern to check overlap of</p>
+<dl class="docutils">
+<dt>&#64;return (overlaps, categories) Two numpy arrays of the same length:</dt>
+<dd>overlaps: an integer overlap amount for each category
+categories: category index for each element of overlaps</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionId">
+<code class="descname">getPartitionId</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the partition Id associated with pattern i.  Returns None
+if no Id is associated with it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdList">
+<code class="descname">getPartitionIdList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list containing unique (non-None) partition Ids</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdPerPattern">
+<code class="descname">getPartitionIdPerPattern</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getPartitionIdPerPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of numPatterns elements where the i&#8217;th position contains
+the integer partition Id associated with pattern i. If pattern i had no
+partition Id, it&#8217;s value will be numpy.inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getPattern">
+<code class="descname">getPattern</code><span class="sig-paren">(</span><em>idx</em>, <em>sparseBinaryForm=False</em>, <em>cat=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a training pattern either by index or category number.</p>
+<p>&#64;param idx Index of the training pattern</p>
+<dl class="docutils">
+<dt>&#64;param sparseBinaryForm If true, returns a list of the indices of the</dt>
+<dd>non-zero bits in the training pattern</dd>
+<dt>&#64;param cat If not None, get the first pattern belonging to category cat. If</dt>
+<dd>this is specified, idx must be None.</dd>
+</dl>
+<p>&#64;return The training pattern with specified index</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.getPatternIndicesWithPartitionId">
+<code class="descname">getPatternIndicesWithPartitionId</code><span class="sig-paren">(</span><em>partitionId</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.getPatternIndicesWithPartitionId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of pattern indices corresponding to this partitionId.
+Return an empty list if there are none</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.infer">
+<code class="descname">infer</code><span class="sig-paren">(</span><em>inputPattern</em>, <em>computeScores=True</em>, <em>overCategories=True</em>, <em>partitionId=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.infer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the category that best matches the input pattern. Returns the
+winning category index as well as a distribution over all categories.</p>
+<p>&#64;param inputPattern (list) A pattern to be classified</p>
+<p>&#64;param computeScores NO EFFECT</p>
+<p>&#64;param overCategories NO EFFECT</p>
+<dl class="docutils">
+<dt>&#64;param partitionId (int) If provided, all training vectors with partitionId</dt>
+<dd>equal to that of the input pattern are ignored.
+For example, this may be used to perform k-fold cross validation
+without repopulating the classifier. First partition all the data into
+k equal partitions numbered 0, 1, 2, ... and then call learn() for each
+vector passing in its partitionId. Then, during inference, by passing
+in the partition ID in the call to infer(), all other vectors with the
+same partitionId are ignored simulating the effect of repopulating the
+classifier while ommitting the training vectors in the same partition.</dd>
+<dt>This method returns a 4-tuple: (winner, inferenceResult, dist, categoryDist)</dt>
+<dd><dl class="first last docutils">
+<dt>winner:           The category with the greatest number of nearest</dt>
+<dd>neighbors within the kth nearest neighbors. If the
+inferenceResult contains no neighbors, the value of
+winner is None. This can happen, for example, in cases
+of exact matching, if there are no stored vectors, or if
+minSparsity is not met.</dd>
+<dt>inferenceResult:  A list of length numCategories, each entry contains the</dt>
+<dd>number of neighbors within the top k neighbors that
+are in that category.</dd>
+<dt>dist:             A list of length numPrototypes. Each entry is the</dt>
+<dd>distance from the unknown to that prototype. All
+distances are between 0.0 and 1.0</dd>
+<dt>categoryDist:     A list of length numCategories. Each entry is the</dt>
+<dd>distance from the unknown to the nearest prototype of
+that category. All distances are between 0 and 1.0.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>inputPattern</em>, <em>inputCategory</em>, <em>partitionId=None</em>, <em>isSparse=0</em>, <em>rowID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the classifier to associate specified input pattern with a
+particular category.</p>
+<dl class="docutils">
+<dt>&#64;param inputPattern (list) The pattern to be assigned a category. If</dt>
+<dd>isSparse is 0, this should be a dense array (both ON and OFF bits
+present). Otherwise, if isSparse &gt; 0, this should be a list of the
+indices of the non-zero bits in sorted order</dd>
+<dt>&#64;param inputCategory (int) The category to be associated to the training</dt>
+<dd>pattern</dd>
+<dt>&#64;param partitionId (int) partitionID allows you to associate an id with each</dt>
+<dd>input vector. It can be used to associate input patterns stored in the
+classifier with an external id. This can be useful for debugging or
+visualizing. Another use case is to ignore vectors with a specific id
+during inference (see description of infer() for details). There can be
+at most one partitionId per stored pattern (i.e. if two patterns are
+within distThreshold, only the first partitionId will be stored). This
+is an optional parameter.</dd>
+<dt>&#64;param isSparse (int) If 0, the input pattern is a dense representation. If</dt>
+<dd>isSparse &gt; 0, the input pattern is a list of non-zero indices and
+isSparse is the length of the dense representation</dd>
+</dl>
+<p>&#64;param rowID (int) UNKNOWN</p>
+<p>&#64;return The number of patterns currently stored in the classifier</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.remapCategories">
+<code class="descname">remapCategories</code><span class="sig-paren">(</span><em>mapping</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.remapCategories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the category indices.</p>
+<p>Used by the Network Builder to keep the category indices in sync with the
+ImageSensor categoryInfo when the user renames or removes categories.</p>
+<dl class="docutils">
+<dt>&#64;param mapping List of new category indices. For example, mapping=[2,0,1]</dt>
+<dd>would change all vectors of category 0 to be category 2, category 1 to
+0, and category 2 to 1</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nupic.algorithms.KNNClassifier.KNNClassifier.setCategoryOfVectors">
+<code class="descname">setCategoryOfVectors</code><span class="sig-paren">(</span><em>vectorIndices</em>, <em>categoryIndices</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.KNNClassifier.KNNClassifier.setCategoryOfVectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the category associated with this vector(s).</p>
+<p>Used by the Network Builder to move vectors between categories, to enable
+categories, and to invalidate vectors by setting the category to -1.</p>
+<p>&#64;param vectorIndices Single index or list of indices</p>
+<dl class="docutils">
+<dt>&#64;param categoryIndices Single index or list of indices. Can also be a</dt>
+<dd>single index when vectorIndices is a list, in which case the same
+category will be used for all vectors</dd>
 </dl>
 </dd></dl>
 
@@ -283,6 +518,7 @@ the &#8220;implementation&#8221; keyword argument.</p>
 <li class="toctree-l3"><a class="reference internal" href="temporal-memory.html">Temporal Memory</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Classifiers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-nupic.algorithms.sdr_classifier">SDR Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#knn-classifier">KNN Classifier</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="anomaly-detection.html">Anomaly Detection</a></li>
