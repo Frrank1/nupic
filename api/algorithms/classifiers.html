@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Classifiers &#8212; NuPIC 0.6.1.dev0
+    <title>Classifiers &#8212; NuPIC 0.7.0.dev0
  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.6.1.dev0',
+        VERSION:     '0.7.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,8 +46,11 @@
             
   <div class="section" id="classifiers">
 <h1>Classifiers<a class="headerlink" href="#classifiers" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="sdr-classifier">
-<h2>SDR Classifier<a class="headerlink" href="#sdr-classifier" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-nupic.algorithms.sdr_classifier">
+<span id="sdr-classifier"></span><h2>SDR Classifier<a class="headerlink" href="#module-nupic.algorithms.sdr_classifier" title="Permalink to this headline">¶</a></h2>
+<p>Implementation of a SDR classifier.</p>
+<p>The SDR classifier takes the form of a single layer classification network
+that takes SDRs as input and outputs a predicted distribution of classes.</p>
 <dl class="class">
 <dt id="nupic.algorithms.sdr_classifier.SDRClassifier">
 <em class="property">class </em><code class="descclassname">nupic.algorithms.sdr_classifier.</code><code class="descname">SDRClassifier</code><span class="sig-paren">(</span><em>steps=(1</em>, <em>)</em>, <em>alpha=0.001</em>, <em>actValueAlpha=0.3</em>, <em>verbosity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.sdr_classifier.SDRClassifier" title="Permalink to this definition">¶</a></dt>
@@ -220,103 +223,19 @@ matrix, return a predicted distribution.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="cla-classifier">
-<h2>CLA Classifier<a class="headerlink" href="#cla-classifier" title="Permalink to this headline">¶</a></h2>
-<p>Outdated. Use SDR Classifier.</p>
 <dl class="class">
-<dt id="nupic.algorithms.CLAClassifier.CLAClassifier">
-<em class="property">class </em><code class="descclassname">nupic.algorithms.CLAClassifier.</code><code class="descname">CLAClassifier</code><span class="sig-paren">(</span><em>steps=(1</em>, <em>)</em>, <em>alpha=0.001</em>, <em>actValueAlpha=0.3</em>, <em>verbosity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.CLAClassifier.CLAClassifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>A CLA classifier accepts a binary input from the level below (the
-&#8220;activationPattern&#8221;) and information from the sensor and encoders (the
-&#8220;classification&#8221;) describing the input to the system at that time step.</p>
-<p>When learning, for every bit in activation pattern, it records a history of 
-the classification each time that bit was active. The history is weighted so 
-that more recent activity has a bigger impact than older activity. The alpha
-parameter controls this weighting.</p>
-<p>For inference, it takes an ensemble approach. For every active bit in the
-activationPattern, it looks up the most likely classification(s) from the
-history stored for that bit and then votes across these to get the resulting
-classification(s).</p>
-<p>This classifier can learn and infer a number of simultaneous classifications
-at once, each representing a shift of a different number of time steps. For
-example, say you are doing multi-step prediction and want the predictions for
-1 and 3 time steps in advance. The CLAClassifier would learn the associations
-between the activation pattern for time step T and the classifications for
-time step T+1, as well as the associations between activation pattern T and
-the classifications for T+3. The &#8216;steps&#8217; constructor argument specifies the
-list of time-steps you want.</p>
-<dl class="method">
-<dt id="nupic.algorithms.CLAClassifier.CLAClassifier.compute">
-<code class="descname">compute</code><span class="sig-paren">(</span><em>recordNum</em>, <em>patternNZ</em>, <em>classification</em>, <em>learn</em>, <em>infer</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.CLAClassifier.CLAClassifier.compute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process one input sample.
-This method is called by outer loop code outside the nupic-engine. We
-use this instead of the nupic engine compute() because our inputs and
-outputs aren&#8217;t fixed size vectors of reals.</p>
+<dt id="nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory">
+<em class="property">class </em><code class="descclassname">nupic.algorithms.sdr_classifier_factory.</code><code class="descname">SDRClassifierFactory</code><a class="headerlink" href="#nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory for instantiating SDR classifiers.</p>
+<dl class="staticmethod">
+<dt id="nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory.create">
+<em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a SDR classifier factory.
+The implementation of the SDR Classifier can be specified with
+the &#8220;implementation&#8221; keyword argument.</p>
 <dl class="docutils">
-<dt>recordNum:  Record number of this input pattern. Record numbers should</dt>
-<dd>normally increase sequentially by 1 each time unless there
-are missing records in the dataset. Knowing this information
-insures that we don&#8217;t get confused by missing records.</dd>
-<dt>patternNZ:  List of the active indices from the output below.</dt>
-<dd><ul class="first last simple">
-<li>When the input is from TemporalMemory, this list should be the
-indices of the active cells.</li>
-</ul>
-</dd>
-<dt>classification: dict of the classification information:</dt>
-<dd>bucketIdx: index of the encoder bucket
-actValue:  actual value going into the encoder</dd>
-</dl>
-<p>learn:      if true, learn this sample
-infer:      if true, perform inference</p>
-<dl class="docutils">
-<dt>retval:     dict containing inference results, there is one entry for each</dt>
-<dd><p class="first">step in self.steps, where the key is the number of steps, and
-the value is an array containing the relative likelihood for
-each bucketIdx starting from bucketIdx 0.</p>
-<p>There is also an entry containing the average actual value to
-use for each bucket. The key is &#8216;actualValues&#8217;.</p>
-<dl class="last docutils">
-<dt>for example:</dt>
-<dd><dl class="first docutils">
-<dt>{1 <span class="classifier-delimiter">:</span> <span class="classifier">[0.1, 0.3, 0.2, 0.7],</span></dt>
-<dd>4 :             [0.2, 0.4, 0.3, 0.5],
-&#8216;actualValues&#8217;: [1.5, 3,5, 5,5, 7.6],</dd>
-</dl>
-<p class="last">}</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="nupic.algorithms.CLAClassifier.CLAClassifier.infer">
-<code class="descname">infer</code><span class="sig-paren">(</span><em>patternNZ</em>, <em>classification</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.CLAClassifier.CLAClassifier.infer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the inference value from one input sample. The actual 
-learning happens in compute(). The method customCompute() is here to 
-maintain backward compatibility.</p>
-<p>patternNZ:      list of the active indices from the output below
-classification: dict of the classification information:</p>
-<blockquote>
-<div>bucketIdx: index of the encoder bucket
-actValue:  actual value going into the encoder</div></blockquote>
-<dl class="docutils">
-<dt>retval:     dict containing inference results, one entry for each step in</dt>
-<dd><p class="first">self.steps. The key is the number of steps, the value is an
-array containing the relative likelihood for each bucketIdx
-starting from bucketIdx 0.</p>
-<dl class="last docutils">
-<dt>for example:</dt>
-<dd><dl class="first last docutils">
-<dt>{&#8216;actualValues&#8217;: [0.0, 1.0, 2.0, 3.0]</dt>
-<dd>1 : [0.1, 0.3, 0.2, 0.7]
-4 : [0.2, 0.4, 0.3, 0.5]}</dd>
-</dl>
-</dd>
-</dl>
-</dd>
+<dt>The SDRClassifierFactory uses the implementation as specified in</dt>
+<dd>src/nupic/support/nupic-default.xml</dd>
 </dl>
 </dd></dl>
 
@@ -362,7 +281,10 @@ starting from bucketIdx 0.</p>
 <li class="toctree-l3"><a class="reference internal" href="encoders.html#data">Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spatial-pooler.html">Spatial Pooler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="temporal-memory.html">Temporal Memory</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Classifiers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Classifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-nupic.algorithms.sdr_classifier">SDR Classifier</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="anomaly-detection.html">Anomaly Detection</a></li>
 </ul>
 </li>

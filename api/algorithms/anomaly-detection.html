@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Anomaly Detection &#8212; NuPIC 0.6.1.dev0
+    <title>Anomaly Detection &#8212; NuPIC 0.7.0.dev0
  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.6.1.dev0',
+        VERSION:     '0.7.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,8 +46,9 @@
             
   <div class="section" id="anomaly-detection">
 <h1>Anomaly Detection<a class="headerlink" href="#anomaly-detection" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="anomaly">
-<h2>Anomaly<a class="headerlink" href="#anomaly" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-nupic.algorithms.anomaly">
+<span id="anomaly"></span><h2>Anomaly<a class="headerlink" href="#module-nupic.algorithms.anomaly" title="Permalink to this headline">¶</a></h2>
+<p>Anomaly-related algorithms.</p>
 <dl class="class">
 <dt id="nupic.algorithms.anomaly.Anomaly">
 <em class="property">class </em><code class="descclassname">nupic.algorithms.anomaly.</code><code class="descname">Anomaly</code><span class="sig-paren">(</span><em>slidingWindowSize=None</em>, <em>mode='pure'</em>, <em>binaryAnomalyThreshold=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly.Anomaly" title="Permalink to this definition">¶</a></dt>
@@ -84,9 +85,51 @@ MODE_LIKELIHOOD - uses the AnomalyLikelihood class on top of the raw</p>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="nupic.algorithms.anomaly.computeRawAnomalyScore">
+<code class="descclassname">nupic.algorithms.anomaly.</code><code class="descname">computeRawAnomalyScore</code><span class="sig-paren">(</span><em>activeColumns</em>, <em>prevPredictedColumns</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly.computeRawAnomalyScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw anomaly score.</p>
+<p>The raw anomaly score is the fraction of active columns not predicted.</p>
+<p>&#64;param activeColumns: array of active column indices
+&#64;param prevPredictedColumns: array of columns indices predicted in prev step
+&#64;return anomaly score 0..1 (float)</p>
+</dd></dl>
+
 </div>
-<div class="section" id="anomalylikelihood">
-<h2>AnomalyLikelihood<a class="headerlink" href="#anomalylikelihood" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-nupic.algorithms.anomaly_likelihood">
+<span id="anomalylikelihood"></span><h2>AnomalyLikelihood<a class="headerlink" href="#module-nupic.algorithms.anomaly_likelihood" title="Permalink to this headline">¶</a></h2>
+<p>This module analyzes and estimates the distribution of averaged anomaly scores
+from a given model. Given a new anomaly score <cite>s</cite>, estimates <cite>P(score &gt;= s)</cite>.</p>
+<p>The number <cite>P(score &gt;= s)</cite> represents the likelihood of the current state of
+predictability. For example, a likelihood of 0.01 or 1% means we see this much
+predictability about one out of every 100 records. The number is not as unusual
+as it seems. For records that arrive every minute, this means once every hour
+and 40 minutes. A likelihood of 0.0001 or 0.01% means we see it once out of
+10,000 records, or about once every 7 days.</p>
+<div class="section" id="usage">
+<h3>USAGE<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to use the code: using the AnomalyLikelihood helper class or
+using the raw individual functions.</p>
+</div>
+<div class="section" id="helper-class">
+<h3>Helper Class<a class="headerlink" href="#helper-class" title="Permalink to this headline">¶</a></h3>
+<p>The helper class AnomalyLikelihood is the easiest to use.  To use it simply
+create an instance and then feed it successive anomaly scores:</p>
+<p>anomalyLikelihood = AnomalyLikelihood()
+while still_have_data:</p>
+<blockquote>
+<div><p># Get anomaly score from model</p>
+<p># Compute probability that an anomaly has ocurred
+anomalyProbability = anomalyLikelihood.anomalyProbability(</p>
+<blockquote>
+<div>value, anomalyScore, timestamp)</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="raw-functions">
+<h3>Raw functions<a class="headerlink" href="#raw-functions" title="Permalink to this headline">¶</a></h3>
+<p>There are two lower level functions, estimateAnomalyLikelihoods and
+updateAnomalyLikelihoods. The details of these are described below.</p>
+</div>
 <dl class="class">
 <dt id="nupic.algorithms.anomaly_likelihood.AnomalyLikelihood">
 <em class="property">class </em><code class="descclassname">nupic.algorithms.anomaly_likelihood.</code><code class="descname">AnomalyLikelihood</code><span class="sig-paren">(</span><em>claLearningPeriod=None</em>, <em>learningPeriod=288</em>, <em>estimationSamples=100</em>, <em>historicWindowSize=8640</em>, <em>reestimationPeriod=100</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood" title="Permalink to this definition">¶</a></dt>
@@ -140,6 +183,99 @@ etc.</p>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods">
+<code class="descclassname">nupic.algorithms.anomaly_likelihood.</code><code class="descname">estimateAnomalyLikelihoods</code><span class="sig-paren">(</span><em>anomalyScores</em>, <em>averagingWindow=10</em>, <em>skipRecords=0</em>, <em>verbosity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a series of anomaly scores, compute the likelihood for each score. This
+function should be called once on a bunch of historical anomaly scores for an
+initial estimate of the distribution. It should be called again every so often
+(say every 50 records) to update the estimate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>anomalyScores</strong> &#8211; <p>a list of records. Each record is a list with the
+following three elements: [timestamp, value, score]</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For best results, the list should be between 1000
+and 10,000 records</p>
+</li>
+<li><strong>averagingWindow</strong> &#8211; integer number of records to average over</li>
+<li><strong>skipRecords</strong> &#8211; integer specifying number of records to skip when
+estimating distributions. If skip records are &gt;=
+len(anomalyScores), a very broad distribution is returned
+that makes everything pretty likely.</li>
+<li><strong>verbosity</strong> &#8211; <p>integer controlling extent of printouts for debugging</p>
+<p>0 = none
+1 = occasional information
+2 = print every record</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>3-tuple consisting of:</p>
+<ul>
+<li><p class="first">likelihoods</p>
+<p>numpy array of likelihoods, one for each aggregated point</p>
+</li>
+<li><p class="first">avgRecordList</p>
+<p>list of averaged input records</p>
+</li>
+<li><p class="first">params</p>
+<p>a small JSON dict that contains the state of the estimator</p>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods">
+<code class="descclassname">nupic.algorithms.anomaly_likelihood.</code><code class="descname">updateAnomalyLikelihoods</code><span class="sig-paren">(</span><em>anomalyScores</em>, <em>params</em>, <em>verbosity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute updated probabilities for anomalyScores using the given params.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>anomalyScores</strong> &#8211; <p>a list of records. Each record is a list with the
+following three elements: [timestamp, value, score]</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><strong>params</strong> &#8211; the JSON dict returned by estimateAnomalyLikelihoods</li>
+<li><strong>verbosity</strong> (<em>int</em>) &#8211; integer controlling extent of printouts for debugging</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>3-tuple consisting of:</p>
+<ul>
+<li><p class="first">likelihoods</p>
+<p>numpy array of likelihoods, one for each aggregated point</p>
+</li>
+<li><p class="first">avgRecordList</p>
+<p>list of averaged input records</p>
+</li>
+<li><p class="first">params</p>
+<p>an updated JSON object containing the state of this metric.</p>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -181,7 +317,11 @@ etc.</p>
 <li class="toctree-l3"><a class="reference internal" href="spatial-pooler.html">Spatial Pooler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="temporal-memory.html">Temporal Memory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classifiers.html">Classifiers</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Anomaly Detection</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Anomaly Detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-nupic.algorithms.anomaly">Anomaly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-nupic.algorithms.anomaly_likelihood">AnomalyLikelihood</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../io.html">Input / Output</a></li>

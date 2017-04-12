@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>C++ Style Guide &#8212; NuPIC 0.6.1.dev0
+    <title>C++ Style Guide &#8212; NuPIC 0.7.0.dev0
  documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.1.dev0',
+        VERSION:     '0.7.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -798,28 +798,80 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">C++ Style Guide</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#consistency-within-a-file">Consistency Within A File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#c-source-files">C++ Source Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-cpp-file">The CPP file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#memory-and-resource-management">Memory and Resource Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#general-principles">General principles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-source-files">C++ Source Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introductory-section-and-copyright-notices">Introductory Section And Copyright Notices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filenames">Filenames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#indentation">Indentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-header-file">The Header File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#class-definitions">Class Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#method-definitions">Method Definitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-header-file">Example Header File</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-cpp-file">The CPP file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#variable-declarations">Variable Declarations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comments-in-cpp-files">Comments in CPP files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-of-assert">Use of assert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exceptions-and-error-codes">Exceptions and Error Codes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#avoid-static-cast">Avoid static_cast</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-and-resource-management">Memory and Resource Management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#memory-allocation">Memory Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resource-management">Resource Management</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#general-principles">General principles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#factories">Factories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#passing-resources-around">Passing resources around</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boost-shared-ptr"><code class="docutils literal"><span class="pre">boost::shared_ptr</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#macros">Macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-of-text">Use of text</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#use-of-external-libraries">Use Of External Libraries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cross-platform-coding">Cross Platform Coding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operating-system-dependencies">Operating System Dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#specific-cross-platform-usage">Specific Cross Platform Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#write-compiler-agnostic-code">Write Compiler-Agnostic Code</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api-guidelines">API Guidelines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#naming-conventions">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-guidelines">API Guidelines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api-design-marketing">API Design = Marketing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#naming-conventions">Naming conventions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#abbreviations">Abbreviations</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#api-documentation">API Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-errors-should-you-check-for">What errors should you check for?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#where-should-you-check-for-errors">Where should you check for errors?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-should-you-handle-errors">How should you handle errors?</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#node-api-guidelines">Node API Guidelines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#general-guidelines">General Guidelines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#specific-guidelines">Specific Guidelines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-code-guidelines">Example Code Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-code-guidelines">Example Code Guidelines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-guidelines">General Guidelines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specific-guidelines">Specific Guidelines</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cmake-style-guide.html">CMake Style Guide</a></li>

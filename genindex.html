@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &#8212; NuPIC 0.6.1.dev0
+    <title>Index &#8212; NuPIC 0.7.0.dev0
  documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.1.dev0',
+        VERSION:     '0.7.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -148,8 +148,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.cellsForColumn">cellsForColumn() (nupic.research.temporal_memory.TemporalMemory method)</a>
 </li>
-      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.CLAClassifier.CLAClassifier">CLAClassifier (class in nupic.algorithms.CLAClassifier)</a>
-</li>
       <li><a href="api/network/regions.html#nupic.regions.CLAClassifierRegion.CLAClassifierRegion">CLAClassifierRegion (class in nupic.regions.CLAClassifierRegion)</a>
 </li>
       <li><a href="api/opf/models.html#nupic.frameworks.opf.clamodel.CLAModel">CLAModel (class in nupic.frameworks.opf.clamodel)</a>
@@ -171,8 +169,6 @@
       <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.Anomaly.compute">compute() (nupic.algorithms.anomaly.Anomaly method)</a>
 
       <ul>
-        <li><a href="api/algorithms/classifiers.html#nupic.algorithms.CLAClassifier.CLAClassifier.compute">(nupic.algorithms.CLAClassifier.CLAClassifier method)</a>
-</li>
         <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.compute">(nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
 </li>
         <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.compute">(nupic.bindings.regions.PyRegion.PyRegion method)</a>
@@ -200,6 +196,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly_likelihood.AnomalyLikelihood.computeLogLikelihood">computeLogLikelihood() (nupic.algorithms.anomaly_likelihood.AnomalyLikelihood static method)</a>
 </li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly.computeRawAnomalyScore">computeRawAnomalyScore() (in module nupic.algorithms.anomaly)</a>
+</li>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.connectionsFactory">connectionsFactory() (nupic.research.temporal_memory.TemporalMemory static method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion.constructClassificationRecord">constructClassificationRecord() (nupic.regions.KNNAnomalyClassifierRegion.KNNAnomalyClassifierRegion method)</a>
@@ -208,8 +206,12 @@
 </li>
       <li><a href="api/algorithms/encoders.html#nupic.encoders.geospatial_coordinate.GeospatialCoordinateEncoder.coordinateForPosition">coordinateForPosition() (nupic.encoders.geospatial_coordinate.GeospatialCoordinateEncoder method)</a>
 </li>
-      <li><a href="api/opf/models.html#nupic.frameworks.opf.modelfactory.ModelFactory.create">create() (nupic.frameworks.opf.modelfactory.ModelFactory static method)</a>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory.create">create() (nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory static method)</a>
+
+      <ul>
+        <li><a href="api/opf/models.html#nupic.frameworks.opf.modelfactory.ModelFactory.create">(nupic.frameworks.opf.modelfactory.ModelFactory static method)</a>
 </li>
+      </ul></li>
       <li><a href="api/network/regions.html#nupic.regions.CLAClassifierRegion.CLAClassifierRegion.customCompute">customCompute() (nupic.regions.CLAClassifierRegion.CLAClassifierRegion method)</a>
 
       <ul>
@@ -299,6 +301,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/algorithms/encoders.html#nupic.encoders.base.Encoder">Encoder (class in nupic.encoders.base)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly_likelihood.estimateAnomalyLikelihoods">estimateAnomalyLikelihoods() (in module nupic.algorithms.anomaly_likelihood)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.executeMethod">executeMethod() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
 </li>
@@ -698,12 +702,8 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.CLAClassifier.CLAClassifier.infer">infer() (nupic.algorithms.CLAClassifier.CLAClassifier method)</a>
-
-      <ul>
-        <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.infer">(nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.infer">infer() (nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
 </li>
-      </ul></li>
       <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier.inferSingleStep">inferSingleStep() (nupic.algorithms.sdr_classifier.SDRClassifier method)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.bindings.regions.PyRegion.PyRegion.initialize">initialize() (nupic.bindings.regions.PyRegion.PyRegion method)</a>
@@ -822,8 +822,14 @@
 </li>
       <li><a href="api/algorithms/temporal-memory.html#nupic.research.temporal_memory.TemporalMemory.numberOfColumns">numberOfColumns() (nupic.research.temporal_memory.TemporalMemory method)</a>
 </li>
+      <li><a href="api/algorithms/anomaly-detection.html#module-nupic.algorithms.anomaly">nupic.algorithms.anomaly (module)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#module-nupic.algorithms.anomaly_likelihood">nupic.algorithms.anomaly_likelihood (module)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/algorithms/classifiers.html#module-nupic.algorithms.sdr_classifier">nupic.algorithms.sdr_classifier (module)</a>
+</li>
       <li><a href="api/opf/utils.html#module-nupic.frameworks.opf.common_models.cluster_params">nupic.frameworks.opf.common_models.cluster_params (module)</a>
 </li>
       <li><a href="api/opf/utils.html#module-nupic.frameworks.opf.opfhelpers">nupic.frameworks.opf.opfhelpers (module)</a>
@@ -955,6 +961,8 @@
       <li><a href="api/algorithms/encoders.html#nupic.data.fieldmeta.FieldMetaType.sdr">sdr (nupic.data.fieldmeta.FieldMetaType attribute)</a>
 </li>
       <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier.SDRClassifier">SDRClassifier (class in nupic.algorithms.sdr_classifier)</a>
+</li>
+      <li><a href="api/algorithms/classifiers.html#nupic.algorithms.sdr_classifier_factory.SDRClassifierFactory">SDRClassifierFactory (class in nupic.algorithms.sdr_classifier_factory)</a>
 </li>
       <li><a href="api/network/regions.html#nupic.regions.SDRClassifierRegion.SDRClassifierRegion">SDRClassifierRegion (class in nupic.regions.SDRClassifierRegion)</a>
 </li>
@@ -1117,6 +1125,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/opf/metrics.html#nupic.frameworks.opf.predictionmetricsmanager.MetricsManager.update">update() (nupic.frameworks.opf.predictionmetricsmanager.MetricsManager method)</a>
+</li>
+      <li><a href="api/algorithms/anomaly-detection.html#nupic.algorithms.anomaly_likelihood.updateAnomalyLikelihoods">updateAnomalyLikelihoods() (in module nupic.algorithms.anomaly_likelihood)</a>
 </li>
   </ul></td>
 </tr></table>

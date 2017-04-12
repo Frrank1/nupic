@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python Style Guide &#8212; NuPIC 0.6.1.dev0
+    <title>Python Style Guide &#8212; NuPIC 0.7.0.dev0
  documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.1.dev0',
+        VERSION:     '0.7.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -491,13 +491,49 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Python Style Guide</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#python-version">Python Version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pylint">Pylint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#file-layout">File Layout</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#coding-style">Coding Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-layout">File Layout</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#executables">Executables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#legal-notice">Legal Notice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-docstring">Module Docstring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#coding-style">Coding Style</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#indentation">Indentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#blank-lines">Blank Lines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quotes">Quotes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spaces">Spaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compound-statements">Compound Statements</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#docstrings">Docstrings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#purpose-of-comments">Purpose of Comments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commented-sections">Commented Sections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inline-comments">Inline Comments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comments-in-if-else-blocks">Comments in if/else blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#naming-conventions">Naming Conventions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#directory-and-file-names">Directory and File Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-method-and-instance-variable-names">Function, Method, and Instance Variable Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-global-variables">Module-global Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dummy-names">Dummy Names</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#interfacing-with-third-party-code">Interfacing with third party code</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#programming-guidelines">Programming Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#programming-guidelines">Programming Guidelines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#testable-code">Testable Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stay-dry">Stay DRY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-member-initialization">Data Member Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-comprehensions">List Comprehensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#string-formatting">String Formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enums">Enums</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cpp-style-guide.html">C++ Style Guide</a></li>
